@@ -1,0 +1,59 @@
+<h2>
+  Dynamic JSON
+</h2>
+<br />
+<div *ngFor="let element of testJSON  | keyvalue ; let i = index">
+  <!-- {{i}} -->
+  <div class="row">
+    <div *ngIf="element.value === 'string'" class="col-md-12">
+      <label class="col-md-3">{{element.key | camelCaseToNormal}}</label>
+      <input class="col-md-8" type="text" placeholder="Enter string">
+    </div>
+    <div *ngIf="element.value === 'Date'" class="col-md-12">
+      <label class="col-md-3">{{element.key | camelCaseToNormal}}</label>
+      <input class="col-md-3" type="date" placeholder="Enter date">
+    </div>
+    <div *ngIf="element.value === 'number'" class="col-md-12">
+      <label class="col-md-3">{{element.key | camelCaseToNormal}}</label>
+      <input class="col-md-8" type="text" placeholder="Enter Number">
+    </div>
+    <div *ngIf="typeOf(element.value) == 'object'" class="col-md-12">
+      <label class="col-md-3">{{element.key | camelCaseToNormal}}</label>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th *ngFor="let data of element.value"> {{data | keys | camelCaseToNormal}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td *ngFor="let data of element.value">
+                <input *ngIf="checkTable(data) != 'object'" class="col-md-8" type="text">
+                <h5 *ngIf="checkTable(data) == 'object'"> 
+                  <b>--></b>
+                  <!-- <table class="table"> 
+                    <thead>
+                      <tr> 
+                        <th *ngFor="let item of data | keyvalue"> {{item[value] }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr >
+                        <td *ngFor="let item of data | keyvalue">
+                          {{item}} 
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+                </h5>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
